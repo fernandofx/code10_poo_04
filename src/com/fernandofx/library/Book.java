@@ -1,12 +1,9 @@
 package com.fernandofx.library;
 
 public class Book extends LibraryItem{
-
     private String author;
-
-
-    public Book(String title, int itemId, String author) {
-        super(title, itemId);
+    public Book(String title, int itemId, boolean isLoaned, String author) {
+        super(title, itemId, isLoaned);
         this.author = author;
     }
 
@@ -19,10 +16,8 @@ public class Book extends LibraryItem{
     }
 
     @Override
-    public void showDetail(){
-        System.out.println("Title: " + this.getTitle());
-        System.out.println("ID: " + this.getItemId());
-        System.out.println("Is Loaned?: " + this.isLoaned());
-        System.out.println("Author: " + this.author);
+    public void showDetails() {
+        super.showDetails();
+        System.out.println("Author: " + author);
     }
 }

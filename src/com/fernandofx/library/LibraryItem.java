@@ -1,15 +1,14 @@
 package com.fernandofx.library;
 
 public class LibraryItem {
+    protected String title;
+    protected int itemId;
+    protected boolean isLoaned;
 
-    private String title;
-    private int itemId;
-    private boolean isLoaned;
-
-    public LibraryItem(String title, int itemId) {
+    public LibraryItem(String title, int itemId, boolean isLoaned) {
         this.title = title;
         this.itemId = itemId;
-        this.isLoaned = false;
+        this.isLoaned = isLoaned;
     }
 
     public String getTitle() {
@@ -28,17 +27,17 @@ public class LibraryItem {
         this.itemId = itemId;
     }
 
-    public boolean isLoaned() {
+    public boolean getIsLoaned() {
         return isLoaned;
     }
 
-    public void setLoaned(boolean loaned) {
-        isLoaned = loaned;
+    public void setIsLoaned(boolean isLoaned) {
+        this.isLoaned = isLoaned;
     }
 
-    public void showDetail(){
+    public void showDetails() {
         System.out.println("Title: " + title);
-        System.out.println("ID: " + itemId);
-        System.out.println("isLoaned: " + isLoaned);
+        System.out.println("Item ID: " + itemId);
+        System.out.println("IsLoaned: " + isLoaned);
     }
 }

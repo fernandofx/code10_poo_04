@@ -5,93 +5,57 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import java.util.Scanner;
+
 public class Main {
-
-    private static int id = 0;
-    private static int userId = 0;
-    private static Library library1 = new Library();
-    private static boolean enterUser = true;
-    private static boolean enterItems = true;
-    private static List<LibraryUser> listUsers;
-
     public static void main(String[] args) {
+        Library library = new Library();
+        Scanner sc = new Scanner(System.in);
 
+        while(true) {
+            System.out.println("1. Agregar usuario");
+            System.out.println("2. Agregar item");
+            System.out.println("3. Realizar prestamo");
+            System.out.println("4. Salir");
+            int option = sc.nextInt();
 
-        while(enterItems){
-            System.out.println("Desea ingresar un Item (Si / No)");
-            Scanner sc = new Scanner(System.in);
-            String result = sc.nextLine();
-            if( result.equalsIgnoreCase("no")){
+            if(option == 1) {
+                System.out.println("Ingrese el username");
+                String username = sc.next();
+                System.out.println("Ingrese el ID");
+                int id = sc.nextInt();
+                library.addUser(new LibraryUser(username, id));
+            } else if(option == 2) {
+                System.out.println("1. Agregar DVD");
+                System.out.println("2. Agregar Book");
+                int option2 = sc.nextInt();
+                System.out.println("Ingrese el title");
+                String title = sc.next();
+                System.out.println("Ingrese el item id");
+                int itemId = sc.nextInt();
+
+                // agregar dvd
+                if(option2 == 1) {
+                    System.out.println("Ingrese el director");
+                    String director = sc.next();
+                    System.out.println("Ingrese la duracion");
+                    int duracion = sc.nextInt();
+                    library.addItem(new Dvd(title, itemId, director, duracion));
+                } else if(option2 == 2) { // agregar un book
+                    System.out.println("Ingrese el autor");
+                    String author = sc.next();
+                    library.addItem(new Book(title, itemId, author));
+                }
+            } else if(option == 3) {
+                System.out.println("Ingrese ID usuario");
+                int idUsuario = sc.nextInt();
+                System.out.println("Ingrese ID item");
+                int idItem = sc.nextInt();
+                library.loanItem(idUsuario, idItem);
+            } else if(option == 4) {
                 break;
             }
-            addNewItems();
-
+            System.out.println("===================================");
         }
-
-        library1.showAllItems();
-
-        listUsers = new ArrayList<>();
-
-        while(enterUser){
-            System.out.println("Desea ingresar un usuario (Si / No)");
-            Scanner sc = new Scanner(System.in);
-            String result = sc.nextLine();
-
-            if( result.equalsIgnoreCase("no")){
-                break;
-            }
-            LibraryUser l = createUsers();
-            listUsers.add( l);
-        }
-
-        loanedItem(1,1);
-
-        for( LibraryUser l : listUsers){
-            l.showDetail();
-        }
-    }
-
-    public static void addNewItems(){
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Indicar que tipo de Item quiere ingresar");
-        String type = sc.nextLine();
-        String title = "";
-        String director = "";
-        String author = "";
-        int duration = 0;
-
-        switch (type.toLowerCase()){
-            case "book":
-                System.out.println("Indicar el titulo del libro: ");
-                title = sc.nextLine();
-                System.out.println("Indicar el autor: ");
-                author = sc.nextLine();
-                library1.add(new Book(title, ++id, author));
-                break;
-            case "dvd":
-                System.out.println("Indicar el titulo del DVD: ");
-                title = sc.nextLine();
-                System.out.println("Indicar el director: ");
-                director = sc.nextLine();
-                System.out.println("Indicar la duracion: ");
-                duration = sc.nextInt();
-                library1.add(new Dvd(title, ++id, director, duration));
-                break;
-            default:
-                System.out.println("No es un tipo conocido");
-                break;
-        }
-    }
-
-    private static LibraryUser createUsers(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese un nombre de usuario");
-        String username = sc.nextLine();
-        return new LibraryUser(username, ++userId);
-    }
-
-    private static void loanedItem( int userId, int itemId){
-        listUsers.get(userId -1).setLoanedItems(library1.getItem(itemId -1));
     }
 }

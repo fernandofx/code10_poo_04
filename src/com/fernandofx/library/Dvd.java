@@ -1,14 +1,12 @@
 package com.fernandofx.library;
 
 public class Dvd extends LibraryItem{
-
     private String director;
     private int duration;
-
-    public Dvd(String title, int itemId, String director, int duracion) {
-        super(title, itemId);
+    public Dvd(String title, int itemId, boolean isLoaned, String director, int duration) {
+        super(title, itemId, isLoaned);
         this.director = director;
-        this.duration = duracion;
+        this.duration = duration;
     }
 
     public String getDirector() {
@@ -19,14 +17,20 @@ public class Dvd extends LibraryItem{
         this.director = director;
     }
 
-    @Override
-    public void showDetail(){
-
-        System.out.println("Title: " + this.getTitle());
-        System.out.println("ID: " + this.getItemId());
-        System.out.println("Is Loaned?: " + this.isLoaned());
-        System.out.println("Director: " + this.director);
-        System.out.println("Duración: " + this.duration);
-
+    public int getDuration() {
+        return duration;
     }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public void showDetails() {
+        super.showDetails();
+        System.out.println("Director: " + director);
+        System.out.println("Duration: " + duration);
+    }
+
+
 }
